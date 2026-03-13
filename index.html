@@ -111,10 +111,53 @@ form textarea{resize:none;min-height:10mm}
   }
   @page{size:A4;margin:0}
   body{background:#fff}
-  .bar{display:none!important}
+  .bar, .signature-modal {display:none!important}
   .pages{margin-top:0;padding:0;gap:0}
   .page{box-shadow:none;width:210mm;padding:5mm}
 }
+
+/* SIGNATURE MODAL */
+.signature-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.signature-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 90%;
+  max-width: 500px;
+}
+.signature-box canvas {
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: crosshair;
+  touch-action: none;
+}
+.signature-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.signature-btns button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-sig-cancel { background: #e0e0e0; color: #333; }
+.btn-sig-clear { background: #ff7675; color: #fff; }
+.btn-sig-save { background: #1565C0; color: #fff; }
 </style>
 </head>
 <body>
@@ -552,18 +595,25 @@ form textarea{resize:none;min-height:10mm}
 
     <table class="firma-tbl">
       <tr>
-        <td style="width:38%;text-align:center">
-          <div class="sign-line"></div>
+        <td style="width:38%;text-align:center;cursor:pointer" onclick="abrirFirma()" title="Clic para firmar">
+          <div class="sign-line" style="position:relative;display:flex;align-items:flex-end;justify-content:center">
+            <img id="sign-img" alt="firma" style="max-height:12mm;max-width:100%;display:none;margin-bottom:2px"/>
+            <span id="sign-placeholder" style="position:absolute;color:#ccc;font-size:8pt;bottom:4px">Clic aquí para firmar</span>
+          </div>
           <span style="font-size:6.5pt;color:#555">Firma del aspirante</span>
         </td>
         <td style="width:4%;border:none"></td>
         <td style="width:26%;text-align:center">
-          <div class="sign-line"></div>
+          <div class="sign-line">
+            <input type="text" name="cc_firma" style="text-align:center;font-size:8pt;font-weight:bold"/>
+          </div>
           <span style="font-size:6.5pt;color:#555">C.C. Nº</span>
         </td>
         <td style="width:4%;border:none"></td>
         <td style="width:28%;text-align:center">
-          <div class="sign-line"></div>
+          <div class="sign-line">
+            <input type="text" name="ciudad_fecha_firma" style="text-align:center;font-size:8pt;font-weight:bold"/>
+          </div>
           <span style="font-size:6.5pt;color:#555">Ciudad y fecha</span>
         </td>
       </tr>
@@ -579,6 +629,19 @@ form textarea{resize:none;min-height:10mm}
 
 </form>
 </div><!-- end .pages -->
+
+<!-- SIGNATURE MODAL -->
+<div class="signature-modal" id="sig-modal">
+  <div class="signature-box">
+    <div style="font-weight:bold;color:#1565C0;text-align:center">Dibuje su firma aquí</div>
+    <canvas id="sig-canvas" width="400" height="150"></canvas>
+    <div class="signature-btns">
+      <button type="button" class="btn-sig-cancel" onclick="cerrarFirma()">Cancelar</button>
+      <button type="button" class="btn-sig-clear" onclick="limpiarFirma()">Borrar</button>
+      <button type="button" class="btn-sig-save" onclick="guardarFirma()">Guardar Firma</button>
+    </div>
+  </div>
+</div>
 
 <script src="app.js?v=4"></script>
 </body>

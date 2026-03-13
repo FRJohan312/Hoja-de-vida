@@ -46,6 +46,10 @@
     if (photoPreview && photoPreview.src && photoPreview.src.startsWith('data:')) {
       data['__photo'] = photoPreview.src;
     }
+    // Firma
+    if (signPreview && signPreview.src && signPreview.src.startsWith('data:')) {
+      data['__firma'] = signPreview.src;
+    }
 
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -75,6 +79,14 @@
         if (photoPh) photoPh.style.display = 'none';
         return;
       }
+      if (key === '__firma') {
+        if (signPreview) {
+          signPreview.src = val;
+          signPreview.style.display = 'block';
+        }
+        if (signPh) signPh.style.display = 'none';
+        return;
+      }
       // Radio inputs — can have multiple with same name
       const radios = form.querySelectorAll(`input[type=radio][name="${key}"]`);
       if (radios.length > 0) {
@@ -97,6 +109,8 @@
     document.getElementById('f').reset();
     if (photoPreview) { photoPreview.src = ''; photoPreview.style.display = 'none'; }
     if (photoPh) photoPh.style.display = 'flex';
+    if (signPreview) { signPreview.src = ''; signPreview.style.display = 'none'; }
+    if (signPh) signPh.style.display = 'block';
     localStorage.removeItem(STORAGE_KEY);
     mostrarMensaje('🗑 Formulario limpiado');
   };
@@ -196,6 +210,102 @@
     clearTimeout(toast._t);
     toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2500);
   }
+
+  // -------- FIRMA (CANVAS) --------
+  const sigModal = document.getElementById('sig-modal');
+  const canvas = document.getElementById('sig-canvas');
+  const signPreview = document.getElementById('sign-img');
+  const signPh = document.getElementById('sign-placeholder');
+  let ctx, isDrawing = false;
+
+  if (canvas) {
+    ctx = canvas.getContext('2d');
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#000033'; // Tinta azul oscuro
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDraw(e) {
+      if (e.cancelable) e.preventDefault();
+      isDrawing = true;
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      if (e.cancelable) e.preventDefault();
+      const pos = getPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+
+    function endDraw() {
+      isDrawing = false;
+      ctx.closePath();
+    }
+
+    // Mouse events
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseout', endDraw);
+
+    // Touch events for mobile
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', endDraw);
+  }
+
+  window.abrirFirma = function() {
+    if (sigModal) {
+      sigModal.style.display = 'flex';
+      // Ajustar width al contenedor actual si es móvil
+      const box = sigModal.querySelector('.signature-box');
+      if (box) {
+        let w = box.clientWidth - 32; // padding
+        if (w > 400) w = 400;
+        if (canvas.width !== w) {
+          // Si cambia el tamaño, guardar la imagen actual y redibujarla para no perderla
+          const tempImg = new Image();
+          tempImg.src = canvas.toDataURL();
+          canvas.width = w;
+          ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.strokeStyle = '#000033';
+          tempImg.onload = () => ctx.drawImage(tempImg, 0, 0);
+        }
+      }
+    }
+  };
+
+  window.cerrarFirma = function() {
+    if (sigModal) sigModal.style.display = 'none';
+  };
+
+  window.limpiarFirma = function() {
+    if (ctx && canvas) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  };
+
+  window.guardarFirma = function() {
+    // Verificar si el canvas está vacío no es trivial, pero asumimos que si se da guardar es porque dibujó
+    const dataUrl = canvas.toDataURL('image/png');
+    if (signPreview) {
+      signPreview.src = dataUrl;
+      signPreview.style.display = 'block';
+    }
+    if (signPh) signPh.style.display = 'none';
+    cerrarFirma();
+    guardar(); // Guardar en localStorage
+    mostrarMensaje('Firma aplicada');
+  };
 
   // -------- INIT --------
   cargarDatos();
