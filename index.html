@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=820, user-scalable=yes"/>
 <title>Hoja de Vida Minerva 1003</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -16,6 +16,15 @@ body{background:#b0b8c8;font-family:Arial,Helvetica,sans-serif;font-size:7.5pt}
 .btn-save{background:#2176c7;color:#fff}
 .btn-clear{background:#607080;color:#fff}
 .btn-print{background:#e8a020;color:#fff}
+
+@media (max-device-width: 768px) {
+  .bar { padding: 10px; flex-wrap: wrap; justify-content: center; }
+  .bar-title { font-size: 20px; display: block; margin-bottom: 4px; }
+  .bar-sub { font-size: 14px; display: block; margin: 0 0 8px 0; }
+  .bar button { padding: 10px 18px; font-size: 16px; margin: 4px; flex: 1; min-width: 100px; }
+  .bar > div { width: 100%; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; }
+  .pages { margin-top: 100px !important; }
+}
 
 /* PAGE AREA */
 .pages{margin-top:44px;padding:16px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
