@@ -5,9 +5,9 @@
   const STORAGE_KEY = 'minerva1003_v2';
 
   // -------- FOTO --------
-  const photoInput = document.getElementById('photo-input');
-  const photoPreview = document.getElementById('photo-preview');
-  const photoPh = document.getElementById('photo-ph');
+  const photoInput = document.getElementById('ph-input');
+  const photoPreview = document.getElementById('ph-img');
+  const photoPh = document.getElementById('ph-txt');
 
   if (photoInput) {
     photoInput.addEventListener('change', function () {
