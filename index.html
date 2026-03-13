@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hoja de Vida Minerva 1003</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#b0b8c8;font-family:Arial,Helvetica,sans-serif;font-size:7.5pt}
+
+/* TOOLBAR */
+.bar{position:fixed;top:0;left:0;right:0;z-index:999;background:#003366;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:6px 16px;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.bar-title{font-size:13px;font-weight:700;letter-spacing:.03em}
+.bar-sub{font-size:10px;color:#aac4e0;margin-left:8px}
+.bar button{margin-left:8px;padding:5px 14px;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;font-family:Arial}
+.btn-save{background:#2176c7;color:#fff}
+.btn-clear{background:#607080;color:#fff}
+.btn-print{background:#e8a020;color:#fff}
+
+/* PAGE AREA */
+.pages{margin-top:44px;padding:16px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.page{width:210mm;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.35);padding:5mm 5mm 5mm 5mm;position:relative;page-break-after:always}
+
+/* MINERVA LEFT BAND */
+.minerva-band{position:absolute;left:0;top:0;bottom:0;width:7mm;background:#1565C0;display:flex;align-items:center;justify-content:center}
+.minerva-band span{color:#fff;font-weight:900;font-size:7pt;letter-spacing:.15em;writing-mode:vertical-rl;transform:rotate(180deg);font-family:Arial Black,Arial}
+
+/* PAGE CONTENT */
+.pc{margin-left:7mm}
+
+/* PAGE NUMBER BADGE */
+.pgnum{position:absolute;top:3mm;right:3mm;width:6mm;height:6mm;background:#1565C0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:8pt}
+
+/* MAIN HEADER */
+.mhdr{text-align:center;padding:1mm 0 2mm;border-bottom:1.5pt solid #1565C0}
+.mhdr-title{font-size:13pt;font-weight:900;color:#003366;letter-spacing:.08em}
+.mhdr-sub{font-size:7.5pt;color:#555;letter-spacing:.06em}
+.mhdr-ref{font-size:7pt;color:#888;margin-top:1px}
+
+/* SECTION HEADER */
+.shdr{background:#1565C0;color:#fff;font-weight:700;font-size:7.5pt;padding:2px 4px;letter-spacing:.04em;margin-top:2mm}
+.shdr2{background:#bbdefb;color:#003366;font-weight:700;font-size:6.5pt;padding:1px 3px}
+
+/* TABLE */
+.ft{width:100%;border-collapse:collapse;margin-top:.5mm}
+.ft td{border:.4pt solid #1565C0;vertical-align:top;padding:0 2px;position:relative}
+.ft td.nh{border:none}
+
+/* LABEL INSIDE CELL */
+.lb{display:block;font-size:5.5pt;color:#1565C0;font-weight:700;line-height:1.1;text-transform:uppercase;white-space:nowrap;padding-top:1px}
+
+/* INPUT */
+form input[type=text],form input[type=tel],form input[type=email],
+form input[type=number],form input[type=date],form input[type=month],
+form select,form textarea{
+  border:none;outline:none;background:transparent;
+  font-family:Arial,Helvetica;font-size:7.5pt;color:#000;
+  width:100%;padding:1px 2px;min-height:5mm;box-sizing:border-box;
+}
+form input[type=number]::-webkit-inner-spin-button,
+form input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+form input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+form select{appearance:none;cursor:pointer}
+form textarea{resize:none;min-height:10mm}
+
+/* RADIO / CHECK */
+.rg{display:flex;flex-wrap:wrap;gap:3px 8px;padding:1px 2px;align-items:center}
+.ro{display:flex;align-items:center;gap:2px;font-size:6.5pt;cursor:pointer;white-space:nowrap}
+.ro input{width:10px;height:10px;margin:0;accent-color:#1565C0;cursor:pointer}
+
+/* PHOTO */
+.ph-cell{text-align:center;border:.4pt solid #1565C0 !important;background:#f0f7ff}
+.ph-zone{width:100%;height:100%;min-height:28mm;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+.ph-zone img{width:100%;height:100%;object-fit:cover;display:none}
+.ph-txt{font-size:6pt;color:#1565C0;text-align:center;padding:4px;line-height:1.5}
+
+/* CHAR BOX (for document numbers) */
+.charbox{display:flex;gap:1px;padding:0 1px}
+.charbox input{width:6mm;min-height:6mm;border:.4pt solid #1565C0;text-align:center;font-size:7pt;padding:0;flex-shrink:0}
+
+/* SIGN AREA */
+.sign-line{border-bottom:.4pt solid #000;min-height:12mm;width:100%}
+
+/* DIVIDER */
+.divider{border:none;border-top:.4pt solid #bbdefb;margin:1mm 0}
+
+/* FIRMA ROW */
+.firma-tbl{width:100%;border-collapse:collapse;margin-top:3mm}
+.firma-tbl td{padding:2px 4px;vertical-align:bottom;font-size:6.5pt;color:#333}
+
+/* PRINT */
+@media print{
+  *{
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .bar{display:none!important}
+  .pages{margin-top:0;padding:0;gap:0}
+  .page{box-shadow:none;width:210mm;padding:5mm}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div><span class="bar-title">📋 Hoja de Vida Minerva 1003</span><span class="bar-sub">Rellene y haga clic en Imprimir</span></div>
+  <div>
+    <button class="btn-clear" onclick="limpiar()">🗑 Limpiar</button>
+    <button class="btn-save" onclick="guardar()">💾 Guardar</button>
+    <button class="btn-print" onclick="imprimir()">🖨 Imprimir / PDF</button>
+  </div>
+</div>
+
+<input type="file" id="ph-input" accept="image/*" style="display:none"/>
+
+<div class="pages">
+<form id="f" autocomplete="off">
+
+<!-- ═══════════════════ PÁGINA 1 ═══════════════════ -->
+<div class="page" id="p1">
+  <div class="minerva-band"><span>MINERVA</span></div>
+  <div class="pgnum">1</div>
+  <div class="pc">
+
+    <!-- ENCABEZADO -->
+    <div class="mhdr">
+      <div class="mhdr-title">HOJA DE VIDA</div>
+      <div class="mhdr-sub">PARA SOLICITUD DE EMPLEO</div>
+      <div class="mhdr-ref">Formas Minerva · REF. 1003 · Derechos reservados Legis</div>
+    </div>
+
+    <!-- I. INFORMACIÓN GENERAL -->
+    <div class="shdr">I. INFORMACIÓN GENERAL</div>
+    <table class="ft">
+      <tr>
+        <td style="width:22%"><span class="lb">Fecha</span><input type="date" name="fecha"/></td>
+        <td style="width:46%"><span class="lb">Cargo al que aspira</span><input type="text" name="cargo_aspira"/></td>
+        <td style="width:16%"><span class="lb">Código del cargo</span><input type="text" name="codigo_cargo"/></td>
+        <td class="ph-cell" rowspan="9" style="width:16%;min-width:28mm">
+          <div class="ph-zone" id="ph-zone" onclick="document.getElementById('ph-input').click()" title="Clic para subir foto">
+            <img id="ph-img" alt="foto"/>
+            <div class="ph-txt" id="ph-txt">👤<br/>Fotografía<br/>reciente<br/><b>3 × 4 cm</b><br/><small style="color:#888">(clic para subir)</small></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:7mm"><span class="lb">Apellidos</span><input type="text" name="apellidos"/></td>
+        <td><span class="lb">Nombres</span><input type="text" name="nombres"/></td>
+      </tr>
+      <tr>
+        <td colspan="3" style="height:7mm"><span class="lb">Dirección de domicilio</span><input type="text" name="direccion"/></td>
+      </tr>
+      <tr>
+        <td style="height:7mm"><span class="lb">Barrio</span><input type="text" name="barrio"/></td>
+        <td><span class="lb">Ciudad / Municipio</span><input type="text" name="ciudad"/></td>
+        <td><span class="lb">Departamento</span><input type="text" name="depto"/></td>
+      </tr>
+      <tr>
+        <td style="height:7mm"><span class="lb">Teléfono fijo</span><input type="tel" name="tel_fijo"/></td>
+        <td><span class="lb">Celular</span><input type="tel" name="celular"/></td>
+        <td><span class="lb">Teléfono otro</span><input type="tel" name="tel_otro"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:7mm"><span class="lb">Correo electrónico</span><input type="email" name="email"/></td>
+        <td><span class="lb">Nacionalidad</span><input type="text" name="nacionalidad" value="Colombiana"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:7mm"><span class="lb">Profesión u ocupación</span><input type="text" name="profesion"/></td>
+        <td><span class="lb">Años experiencia laboral</span><input type="number" name="anios_exp" min="0" max="60"/></td>
+      </tr>
+      <tr>
+        <td colspan="3" style="height:8mm;padding:1px 3px">
+          <span class="lb">Estado civil</span>
+          <div class="rg">
+            <label class="ro"><input type="radio" name="estado_civil" value="Soltero/a"/>Soltero/a</label>
+            <label class="ro"><input type="radio" name="estado_civil" value="Casado/a"/>Casado/a</label>
+            <label class="ro"><input type="radio" name="estado_civil" value="Unión libre"/>Unión libre</label>
+            <label class="ro"><input type="radio" name="estado_civil" value="Separado/a"/>Separado/a</label>
+            <label class="ro"><input type="radio" name="estado_civil" value="Divorciado/a"/>Divorciado/a</label>
+            <label class="ro"><input type="radio" name="estado_civil" value="Viudo/a"/>Viudo/a</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="height:7mm"><span class="lb">Lugar y fecha de nacimiento</span><input type="text" name="lugar_nacimiento" placeholder="Ciudad, DD/MM/AAAA"/></td>
+        <td style="width:16%"><span class="lb">Edad</span><input type="number" name="edad" min="0" max="120"/></td>
+      </tr>
+    </table>
+
+    <!-- II. DOCUMENTACIÓN -->
+    <div class="shdr">II. DOCUMENTACIÓN</div>
+    <table class="ft">
+      <tr>
+        <td style="width:22%;height:8mm"><span class="lb">Tipo de documento</span>
+          <select name="tipo_doc">
+            <option value=""></option>
+            <option>Cédula Ciudadanía</option>
+            <option>Cédula Extranjería</option>
+            <option>Pasaporte</option>
+            <option>Tarjeta Identidad</option>
+          </select>
+        </td>
+        <td style="width:34%"><span class="lb">Número de documento</span>
+          <div class="charbox" style="margin-top:1px">
+            <input type="text" name="doc1" maxlength="1"/><input type="text" name="doc2" maxlength="1"/>
+            <input type="text" name="doc3" maxlength="1"/><input type="text" name="doc4" maxlength="1"/>
+            <input type="text" name="doc5" maxlength="1"/><input type="text" name="doc6" maxlength="1"/>
+            <input type="text" name="doc7" maxlength="1"/><input type="text" name="doc8" maxlength="1"/>
+            <input type="text" name="doc9" maxlength="1"/><input type="text" name="doc10" maxlength="1"/>
+          </div>
+        </td>
+        <td style="width:22%"><span class="lb">Lugar de expedición</span><input type="text" name="lugar_exp"/></td>
+        <td style="width:22%"><span class="lb">Fecha de expedición</span><input type="date" name="fecha_exp"/></td>
+      </tr>
+      <tr>
+        <td style="height:8mm"><span class="lb">N° Libreta Militar</span><input type="text" name="libreta_mil"/></td>
+        <td style="padding:2px 3px">
+          <span class="lb">Clase</span>
+          <div class="rg"><label class="ro"><input type="radio" name="clase_lib" value="1ra"/>1ª clase</label><label class="ro"><input type="radio" name="clase_lib" value="2da"/>2ª clase</label></div>
+        </td>
+        <td><span class="lb">N° Tarjeta Profesional</span><input type="text" name="tarj_prof"/></td>
+        <td><span class="lb">N° Licencia conducción</span><input type="text" name="licencia"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:8mm;padding:2px 3px">
+          <span class="lb">Tipo de vehículo que conduce</span>
+          <div class="rg">
+            <label class="ro"><input type="checkbox" name="veh_moto"/>Moto</label>
+            <label class="ro"><input type="checkbox" name="veh_carro"/>Automóvil</label>
+            <label class="ro"><input type="checkbox" name="veh_camion"/>Camión</label>
+            <label class="ro"><input type="checkbox" name="veh_bus"/>Bus</label>
+            <label class="ro"><input type="checkbox" name="veh_otro"/>Otro</label>
+          </div>
+        </td>
+        <td><span class="lb">Categoría licencia</span>
+          <select name="cat_lic"><option></option><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>B3</option><option>C1</option><option>C2</option><option>C3</option></select>
+        </td>
+        <td><span class="lb">¿Posee vehículo propio?</span>
+          <div class="rg"><label class="ro"><input type="radio" name="veh_propio" value="Sí"/>Sí</label><label class="ro"><input type="radio" name="veh_propio" value="No"/>No</label></div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- III. INFORMACIÓN PERSONAL -->
+    <div class="shdr">III. INFORMACIÓN PERSONAL</div>
+    <table class="ft">
+      <tr>
+        <td style="width:18%;height:8mm;padding:2px 3px">
+          <span class="lb">¿Trabaja actualmente?</span>
+          <div class="rg"><label class="ro"><input type="radio" name="trabaja" value="Sí"/>Sí</label><label class="ro"><input type="radio" name="trabaja" value="No"/>No</label></div>
+        </td>
+        <td style="width:34%"><span class="lb">Nombre de la empresa actual</span><input type="text" name="empresa_actual"/></td>
+        <td style="width:24%"><span class="lb">Cargo actual</span><input type="text" name="cargo_actual"/></td>
+        <td style="width:24%"><span class="lb">Teléfono empresa</span><input type="tel" name="tel_empresa"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:7mm"><span class="lb">Dirección empresa actual</span><input type="text" name="dir_empresa"/></td>
+        <td><span class="lb">Ciudad</span><input type="text" name="ciudad_empresa"/></td>
+        <td><span class="lb">N° personas a cargo</span><input type="number" name="num_dep" min="0"/></td>
+      </tr>
+    </table>
+
+    <!-- Personas a cargo -->
+    <div class="shdr2" style="margin-top:1mm">Personas a cargo económicamente</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:40%">Nombre</td>
+        <td class="shdr2" style="width:25%">Parentesco</td>
+        <td class="shdr2" style="width:15%">Edad</td>
+        <td class="shdr2" style="width:20%">Ocupación</td>
+      </tr>
+      <tr><td style="height:6mm"><input type="text" name="dep_n0"/></td><td><select name="dep_p0"><option></option><option>Hijo/a</option><option>Cónyuge</option><option>Padre</option><option>Madre</option><option>Hermano/a</option><option>Otro</option></select></td><td><input type="number" name="dep_e0" min="0"/></td><td><input type="text" name="dep_o0"/></td></tr>
+      <tr><td style="height:6mm"><input type="text" name="dep_n1"/></td><td><select name="dep_p1"><option></option><option>Hijo/a</option><option>Cónyuge</option><option>Padre</option><option>Madre</option><option>Hermano/a</option><option>Otro</option></select></td><td><input type="number" name="dep_e1" min="0"/></td><td><input type="text" name="dep_o1"/></td></tr>
+      <tr><td style="height:6mm"><input type="text" name="dep_n2"/></td><td><select name="dep_p2"><option></option><option>Hijo/a</option><option>Cónyuge</option><option>Padre</option><option>Madre</option><option>Hermano/a</option><option>Otro</option></select></td><td><input type="number" name="dep_e2" min="0"/></td><td><input type="text" name="dep_o2"/></td></tr>
+    </table>
+
+    <!-- IV. INFORMACIÓN FAMILIAR -->
+    <div class="shdr">IV. INFORMACIÓN FAMILIAR</div>
+    <div class="shdr2" style="margin-top:1mm">Cónyuge / Compañero(a)</div>
+    <table class="ft">
+      <tr>
+        <td style="width:30%;height:7mm"><span class="lb">Nombre completo</span><input type="text" name="conyuge_nombre"/></td>
+        <td style="width:22%"><span class="lb">Profesión</span><input type="text" name="conyuge_prof"/></td>
+        <td style="width:28%"><span class="lb">Empresa donde trabaja</span><input type="text" name="conyuge_emp"/></td>
+        <td style="width:20%"><span class="lb">Cargo</span><input type="text" name="conyuge_cargo"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:7mm"><span class="lb">Dirección</span><input type="text" name="conyuge_dir"/></td>
+        <td><span class="lb">Teléfono</span><input type="tel" name="conyuge_tel"/></td>
+        <td><span class="lb">Ciudad</span><input type="text" name="conyuge_ciudad"/></td>
+      </tr>
+    </table>
+    <div class="shdr2" style="margin-top:.5mm">Padres</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:10%">Rol</td>
+        <td class="shdr2" style="width:38%">Nombre completo</td>
+        <td class="shdr2" style="width:30%">Profesión / Ocupación</td>
+        <td class="shdr2" style="width:22%">Teléfono</td>
+      </tr>
+      <tr><td style="height:6.5mm;font-size:6.5pt;padding:1px 2px;color:#555">Padre</td><td><input type="text" name="padre_nombre"/></td><td><input type="text" name="padre_prof"/></td><td><input type="tel" name="padre_tel"/></td></tr>
+      <tr><td style="height:6.5mm;font-size:6.5pt;padding:1px 2px;color:#555">Madre</td><td><input type="text" name="madre_nombre"/></td><td><input type="text" name="madre_prof"/></td><td><input type="tel" name="madre_tel"/></td></tr>
+    </table>
+
+  </div><!-- end .pc -->
+</div><!-- end page 1 -->
+
+<!-- ═══════════════════ PÁGINA 2 ═══════════════════ -->
+<div class="page" id="p2">
+  <div class="minerva-band"><span>MINERVA</span></div>
+  <div class="pgnum">2</div>
+  <div class="pc">
+
+    <div class="mhdr" style="padding:1mm 0">
+      <span style="font-size:9pt;font-weight:900;color:#003366">HOJA DE VIDA</span>
+      <span style="font-size:7pt;color:#777;margin-left:6px">— Continuación —</span>
+    </div>
+
+    <!-- V. EDUCACIÓN Y APTITUDES -->
+    <div class="shdr">V. EDUCACIÓN Y APTITUDES</div>
+
+    <!-- Primaria -->
+    <div class="shdr2" style="margin-top:.5mm">Educación Primaria</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:16%">Año finalización</td>
+        <td class="shdr2" style="width:30%">Título obtenido</td>
+        <td class="shdr2" style="width:38%">Institución</td>
+        <td class="shdr2" style="width:16%">Ciudad</td>
+      </tr>
+      <tr><td style="height:7mm"><input type="number" name="pri_anio" min="1950" max="2030" placeholder="AAAA"/></td><td><input type="text" name="pri_titulo"/></td><td><input type="text" name="pri_inst"/></td><td><input type="text" name="pri_ciudad"/></td></tr>
+    </table>
+
+    <!-- Bachillerato -->
+    <div class="shdr2" style="margin-top:.5mm">Bachillerato / Educación Media</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:18%">Tipo</td>
+        <td class="shdr2" style="width:14%">Año finaliz.</td>
+        <td class="shdr2" style="width:12%">Años</td>
+        <td class="shdr2" style="width:26%">Título</td>
+        <td class="shdr2" style="width:22%">Institución</td>
+        <td class="shdr2" style="width:8%">Ciudad</td>
+      </tr>
+      <tr>
+        <td style="height:7mm">
+          <select name="bach_tipo"><option></option><option>Académico</option><option>Técnico</option><option>Comercial</option><option>Agropecuario</option><option>Industrial</option></select>
+        </td>
+        <td><input type="number" name="bach_anio" min="1950" max="2030" placeholder="AAAA"/></td>
+        <td><input type="number" name="bach_anios" min="1" max="6"/></td>
+        <td><input type="text" name="bach_titulo"/></td>
+        <td><input type="text" name="bach_inst"/></td>
+        <td><input type="text" name="bach_ciudad"/></td>
+      </tr>
+    </table>
+
+    <!-- Superior -->
+    <div class="shdr2" style="margin-top:.5mm">Educación Superior / Técnica / Tecnológica</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:18%">Nivel</td>
+        <td class="shdr2" style="width:26%">Título obtenido</td>
+        <td class="shdr2" style="width:26%">Institución</td>
+        <td class="shdr2" style="width:14%">Ciudad</td>
+        <td class="shdr2" style="width:10%">Año grad.</td>
+        <td class="shdr2" style="width:6%">Estado</td>
+      </tr>
+      <tr><td style="height:7mm"><select name="sup_niv0"><option></option><option>Técnico</option><option>Tecnológico</option><option>Universitario</option><option>Esp.</option><option>Maestría</option><option>Doctorado</option></select></td><td><input type="text" name="sup_tit0"/></td><td><input type="text" name="sup_ins0"/></td><td><input type="text" name="sup_ciu0"/></td><td><input type="number" name="sup_ano0" min="1950" max="2030"/></td><td><select name="sup_est0"><option></option><option>✓ Grad.</option><option>Cursando</option><option>Incomp.</option></select></td></tr>
+      <tr><td style="height:7mm"><select name="sup_niv1"><option></option><option>Técnico</option><option>Tecnológico</option><option>Universitario</option><option>Esp.</option><option>Maestría</option><option>Doctorado</option></select></td><td><input type="text" name="sup_tit1"/></td><td><input type="text" name="sup_ins1"/></td><td><input type="text" name="sup_ciu1"/></td><td><input type="number" name="sup_ano1" min="1950" max="2030"/></td><td><select name="sup_est1"><option></option><option>✓ Grad.</option><option>Cursando</option><option>Incomp.</option></select></td></tr>
+      <tr><td style="height:7mm"><select name="sup_niv2"><option></option><option>Técnico</option><option>Tecnológico</option><option>Universitario</option><option>Esp.</option><option>Maestría</option><option>Doctorado</option></select></td><td><input type="text" name="sup_tit2"/></td><td><input type="text" name="sup_ins2"/></td><td><input type="text" name="sup_ciu2"/></td><td><input type="number" name="sup_ano2" min="1950" max="2030"/></td><td><select name="sup_est2"><option></option><option>✓ Grad.</option><option>Cursando</option><option>Incomp.</option></select></td></tr>
+    </table>
+
+    <!-- Otros cursos -->
+    <div class="shdr2" style="margin-top:.5mm">Otros estudios / Cursos / Diplomados / Seminarios</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:32%">Nombre del curso / estudio</td>
+        <td class="shdr2" style="width:30%">Institución</td>
+        <td class="shdr2" style="width:14%">Ciudad</td>
+        <td class="shdr2" style="width:12%">Duración (h)</td>
+        <td class="shdr2" style="width:12%">Año</td>
+      </tr>
+      <tr><td style="height:6.5mm"><input type="text" name="cur_n0"/></td><td><input type="text" name="cur_i0"/></td><td><input type="text" name="cur_c0"/></td><td><input type="number" name="cur_h0" min="1"/></td><td><input type="number" name="cur_a0" min="1950"/></td></tr>
+      <tr><td style="height:6.5mm"><input type="text" name="cur_n1"/></td><td><input type="text" name="cur_i1"/></td><td><input type="text" name="cur_c1"/></td><td><input type="number" name="cur_h1" min="1"/></td><td><input type="number" name="cur_a1" min="1950"/></td></tr>
+      <tr><td style="height:6.5mm"><input type="text" name="cur_n2"/></td><td><input type="text" name="cur_i2"/></td><td><input type="text" name="cur_c2"/></td><td><input type="number" name="cur_h2" min="1"/></td><td><input type="number" name="cur_a2" min="1950"/></td></tr>
+    </table>
+
+    <!-- Idiomas -->
+    <div class="shdr2" style="margin-top:.5mm">Idiomas</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:20%">Idioma</td>
+        <td class="shdr2" style="width:26%">Lectura</td>
+        <td class="shdr2" style="width:26%">Escritura</td>
+        <td class="shdr2" style="width:28%">Habla oral</td>
+      </tr>
+      <tr>
+        <td style="height:8mm"><input type="text" name="id_n0" placeholder="Inglés"/></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_lec0" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_lec0" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_lec0" value="Alto"/>Alto</label></div></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_esc0" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_esc0" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_esc0" value="Alto"/>Alto</label></div></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_hab0" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_hab0" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_hab0" value="Alto"/>Alto</label></div></td>
+      </tr>
+      <tr>
+        <td style="height:8mm"><input type="text" name="id_n1"/></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_lec1" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_lec1" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_lec1" value="Alto"/>Alto</label></div></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_esc1" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_esc1" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_esc1" value="Alto"/>Alto</label></div></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="id_hab1" value="Bajo"/>Bajo</label><label class="ro"><input type="radio" name="id_hab1" value="Medio"/>Medio</label><label class="ro"><input type="radio" name="id_hab1" value="Alto"/>Alto</label></div></td>
+      </tr>
+    </table>
+
+    <!-- Programas -->
+    <div class="shdr2" style="margin-top:.5mm">Programas de computador</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:20%">Programa</td>
+        <td class="shdr2" style="width:30%">Nivel</td>
+        <td class="shdr2" style="width:20%">Programa</td>
+        <td class="shdr2" style="width:30%">Nivel</td>
+      </tr>
+      <tr>
+        <td style="height:8mm;font-size:7pt;padding:2px">Microsoft Word</td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_word" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_word" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_word" value="Avanzado"/>Avanz.</label></div></td>
+        <td style="font-size:7pt;padding:2px">Microsoft Excel</td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_excel" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_excel" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_excel" value="Avanzado"/>Avanz.</label></div></td>
+      </tr>
+      <tr>
+        <td style="height:8mm;font-size:7pt;padding:2px">PowerPoint</td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_ppt" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_ppt" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_ppt" value="Avanzado"/>Avanz.</label></div></td>
+        <td style="font-size:7pt;padding:2px">Internet / Correo</td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_inet" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_inet" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_inet" value="Avanzado"/>Avanz.</label></div></td>
+      </tr>
+      <tr>
+        <td style="height:8mm"><input type="text" name="p_ot1_n" placeholder="Otro programa..."/></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_ot1" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_ot1" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_ot1" value="Avanzado"/>Avanz.</label></div></td>
+        <td><input type="text" name="p_ot2_n" placeholder="Otro programa..."/></td>
+        <td style="padding:1px 3px"><div class="rg"><label class="ro"><input type="radio" name="p_ot2" value="Básico"/>Básico</label><label class="ro"><input type="radio" name="p_ot2" value="Intermedio"/>Interm.</label><label class="ro"><input type="radio" name="p_ot2" value="Avanzado"/>Avanz.</label></div></td>
+      </tr>
+    </table>
+
+  </div>
+</div><!-- end page 2 -->
+
+<!-- ═══════════════════ PÁGINA 3 ═══════════════════ -->
+<div class="page" id="p3">
+  <div class="minerva-band"><span>MINERVA</span></div>
+  <div class="pgnum">3</div>
+  <div class="pc">
+
+    <div class="mhdr" style="padding:1mm 0">
+      <span style="font-size:9pt;font-weight:900;color:#003366">HOJA DE VIDA</span>
+      <span style="font-size:7pt;color:#777;margin-left:6px">— Continuación —</span>
+    </div>
+
+    <!-- VI. TRAYECTORIA -->
+    <div class="shdr">VI. TRAYECTORIA POR EMPRESAS — Experiencia Laboral (incluya prácticas e informales)</div>
+
+    <!-- Empresa 1 -->
+    <div class="shdr2" style="margin-top:.5mm">Empresa 1</div>
+    <table class="ft">
+      <tr>
+        <td style="width:35%;height:7mm"><span class="lb">Nombre de la empresa</span><input type="text" name="e1_nom"/></td>
+        <td style="width:25%"><span class="lb">Dirección</span><input type="text" name="e1_dir"/></td>
+        <td style="width:20%"><span class="lb">Ciudad</span><input type="text" name="e1_ciu"/></td>
+        <td style="width:20%"><span class="lb">Teléfono</span><input type="tel" name="e1_tel"/></td>
+      </tr>
+      <tr>
+        <td style="height:7mm"><span class="lb">Cargo desempeñado</span><input type="text" name="e1_car"/></td>
+        <td><span class="lb">Jefe inmediato</span><input type="text" name="e1_jef"/></td>
+        <td><span class="lb">Fecha inicio</span><input type="month" name="e1_ini"/></td>
+        <td><span class="lb">Fecha retiro</span><input type="month" name="e1_ret"/></td>
+      </tr>
+      <tr>
+        <td style="height:7mm"><span class="lb">Salario devengado</span><input type="text" name="e1_sal" placeholder="$"/></td>
+        <td colspan="3"><span class="lb">Motivo de retiro</span><input type="text" name="e1_mot"/></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="height:12mm"><span class="lb">Funciones y responsabilidades principales</span><textarea name="e1_fun"></textarea></td>
+      </tr>
+    </table>
+
+    <!-- Empresa 2 -->
+    <div class="shdr2" style="margin-top:.5mm">Empresa 2</div>
+    <table class="ft">
+      <tr><td style="width:35%;height:7mm"><span class="lb">Nombre de la empresa</span><input type="text" name="e2_nom"/></td><td style="width:25%"><span class="lb">Dirección</span><input type="text" name="e2_dir"/></td><td style="width:20%"><span class="lb">Ciudad</span><input type="text" name="e2_ciu"/></td><td style="width:20%"><span class="lb">Teléfono</span><input type="tel" name="e2_tel"/></td></tr>
+      <tr><td style="height:7mm"><span class="lb">Cargo desempeñado</span><input type="text" name="e2_car"/></td><td><span class="lb">Jefe inmediato</span><input type="text" name="e2_jef"/></td><td><span class="lb">Fecha inicio</span><input type="month" name="e2_ini"/></td><td><span class="lb">Fecha retiro</span><input type="month" name="e2_ret"/></td></tr>
+      <tr><td style="height:7mm"><span class="lb">Salario devengado</span><input type="text" name="e2_sal" placeholder="$"/></td><td colspan="3"><span class="lb">Motivo de retiro</span><input type="text" name="e2_mot"/></td></tr>
+      <tr><td colspan="4" style="height:12mm"><span class="lb">Funciones y responsabilidades principales</span><textarea name="e2_fun"></textarea></td></tr>
+    </table>
+
+    <!-- Empresa 3 -->
+    <div class="shdr2" style="margin-top:.5mm">Empresa 3</div>
+    <table class="ft">
+      <tr><td style="width:35%;height:7mm"><span class="lb">Nombre de la empresa</span><input type="text" name="e3_nom"/></td><td style="width:25%"><span class="lb">Dirección</span><input type="text" name="e3_dir"/></td><td style="width:20%"><span class="lb">Ciudad</span><input type="text" name="e3_ciu"/></td><td style="width:20%"><span class="lb">Teléfono</span><input type="tel" name="e3_tel"/></td></tr>
+      <tr><td style="height:7mm"><span class="lb">Cargo desempeñado</span><input type="text" name="e3_car"/></td><td><span class="lb">Jefe inmediato</span><input type="text" name="e3_jef"/></td><td><span class="lb">Fecha inicio</span><input type="month" name="e3_ini"/></td><td><span class="lb">Fecha retiro</span><input type="month" name="e3_ret"/></td></tr>
+      <tr><td style="height:7mm"><span class="lb">Salario devengado</span><input type="text" name="e3_sal" placeholder="$"/></td><td colspan="3"><span class="lb">Motivo de retiro</span><input type="text" name="e3_mot"/></td></tr>
+      <tr><td colspan="4" style="height:12mm"><span class="lb">Funciones y responsabilidades principales</span><textarea name="e3_fun"></textarea></td></tr>
+    </table>
+
+    <!-- VII. REFERENCIAS -->
+    <div class="shdr" style="margin-top:2mm">VII. REFERENCIAS PERSONALES</div>
+    <table class="ft">
+      <tr>
+        <td class="shdr2" style="width:30%">Nombre completo</td>
+        <td class="shdr2" style="width:22%">Ocupación / Cargo</td>
+        <td class="shdr2" style="width:22%">Empresa / Institución</td>
+        <td class="shdr2" style="width:14%">Teléfono</td>
+        <td class="shdr2" style="width:12%">Tipo</td>
+      </tr>
+      <tr><td style="height:7mm"><input type="text" name="r0_nom"/></td><td><input type="text" name="r0_ocu"/></td><td><input type="text" name="r0_emp"/></td><td><input type="tel" name="r0_tel"/></td><td><select name="r0_tip"><option></option><option>Personal</option><option>Laboral</option><option>Académica</option></select></td></tr>
+      <tr><td style="height:7mm"><input type="text" name="r1_nom"/></td><td><input type="text" name="r1_ocu"/></td><td><input type="text" name="r1_emp"/></td><td><input type="tel" name="r1_tel"/></td><td><select name="r1_tip"><option></option><option>Personal</option><option>Laboral</option><option>Académica</option></select></td></tr>
+      <tr><td style="height:7mm"><input type="text" name="r2_nom"/></td><td><input type="text" name="r2_ocu"/></td><td><input type="text" name="r2_emp"/></td><td><input type="tel" name="r2_tel"/></td><td><select name="r2_tip"><option></option><option>Personal</option><option>Laboral</option><option>Académica</option></select></td></tr>
+    </table>
+
+    <!-- VIII. PROCESO SELECCIÓN -->
+    <div class="shdr" style="margin-top:2mm">VIII. ADMINISTRACIÓN DEL PROCESO DE SELECCIÓN (uso exclusivo del empleador)</div>
+    <table class="ft">
+      <tr>
+        <td style="width:20%;height:8mm"><span class="lb">Fecha entrevista</span><input type="date" name="sel_fecha"/></td>
+        <td style="width:28%"><span class="lb">Nombre del entrevistador</span><input type="text" name="sel_ent"/></td>
+        <td style="width:20%"><span class="lb">Resultado</span>
+          <select name="sel_res"><option></option><option>Aprobado</option><option>No aprobado</option><option>En espera</option><option>Otro cargo</option></select>
+        </td>
+        <td style="width:32%"><span class="lb">Observaciones</span><input type="text" name="sel_obs"/></td>
+      </tr>
+    </table>
+
+    <!-- DECLARACIÓN + FIRMA -->
+    <table class="ft" style="margin-top:2mm">
+      <tr>
+        <td style="padding:4px 6px;font-size:6pt;color:#333;text-align:justify;line-height:1.6;height:14mm">
+          <strong>DECLARACIÓN JURAMENTADA:</strong> Certifico bajo la gravedad del juramento que todos los datos suministrados en la presente hoja de vida son verídicos y completos, y que no he omitido ni falseado dato alguno. Autorizo expresamente a verificar toda la información aquí consignada y me someto a las consecuencias legales en caso de falsedad.
+        </td>
+      </tr>
+    </table>
+
+    <table class="firma-tbl">
+      <tr>
+        <td style="width:38%;text-align:center">
+          <div class="sign-line"></div>
+          <span style="font-size:6.5pt;color:#555">Firma del aspirante</span>
+        </td>
+        <td style="width:4%;border:none"></td>
+        <td style="width:26%;text-align:center">
+          <div class="sign-line"></div>
+          <span style="font-size:6.5pt;color:#555">C.C. Nº</span>
+        </td>
+        <td style="width:4%;border:none"></td>
+        <td style="width:28%;text-align:center">
+          <div class="sign-line"></div>
+          <span style="font-size:6.5pt;color:#555">Ciudad y fecha</span>
+        </td>
+      </tr>
+    </table>
+
+    <!-- PIE DE PAGINA -->
+    <div style="margin-top:3mm;text-align:center;font-size:5.5pt;color:#aaa;border-top:.4pt solid #ddd;padding-top:2mm">
+      Formas Minerva S.A. · Ref. 1003 · Hoja de Vida para Solicitud de Empleo · Derechos reservados Legis S.A. Colombia
+    </div>
+
+  </div>
+</div><!-- end page 3 -->
+
+</form>
+</div><!-- end .pages -->
+
+<script src="app.js?v=4"></script>
+</body>
+</html>
