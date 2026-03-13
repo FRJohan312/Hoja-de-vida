@@ -26,7 +26,7 @@
 
   // -------- GUARDAR --------
   window.guardar = function () {
-    const form = document.getElementById('minerva-form');
+    const form = document.getElementById('f');
     if (!form) return;
     const data = {};
 
@@ -64,7 +64,7 @@
       data = JSON.parse(raw);
     } catch (e) { return; }
 
-    const form = document.getElementById('minerva-form');
+    const form = document.getElementById('f');
 
     Object.entries(data).forEach(([key, val]) => {
       if (key === '__photo') {
@@ -94,7 +94,7 @@
   // -------- LIMPIAR --------
   window.limpiar = function () {
     if (!confirm('¿Desea borrar todos los datos del formulario?')) return;
-    document.getElementById('minerva-form').reset();
+    document.getElementById('f').reset();
     if (photoPreview) { photoPreview.src = ''; photoPreview.style.display = 'none'; }
     if (photoPh) photoPh.style.display = 'flex';
     localStorage.removeItem(STORAGE_KEY);
@@ -116,11 +116,49 @@
   };
 
   // -------- AUTO-SAVE --------
-  const form = document.getElementById('minerva-form');
+  const form = document.getElementById('f');
   if (form) {
     form.addEventListener('input', debounce(guardar, 800));
     form.addEventListener('change', debounce(guardar, 400));
   }
+
+  // -------- DOCUMENT NUMBER AUTO-FOCUS --------
+  const charboxes = document.querySelectorAll('.charbox input');
+  charboxes.forEach((cb, i) => {
+    // Para forzar que sólo haya 1 carácter y manejar si se escriben rápido o se pega
+    cb.addEventListener('input', function(e) {
+      const val = this.value;
+      if (val.length > 1) {
+        // Dejar sólo el primer carácter en esta casilla
+        this.value = val.charAt(0);
+        // Si hay más caracteres y no es la última casilla, pasarlos a la siguiente
+        if (i < charboxes.length - 1) {
+          charboxes[i + 1].focus();
+          charboxes[i + 1].value = val.substring(1);
+          charboxes[i + 1].dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      } else if (val.length === 1 && i < charboxes.length - 1) {
+        // Si es 1 carácter, pasar foco a la siguiente
+        charboxes[i + 1].focus();
+      }
+    });
+    
+    cb.addEventListener('keydown', function(e) {
+      // Volver a la casilla anterior si se presiona borrar y está vacía
+      if (e.key === 'Backspace' && this.value === '' && i > 0) {
+        charboxes[i - 1].focus();
+      }
+    });
+    
+    // Pegar texto largo
+    cb.addEventListener('paste', function(e) {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\\s/g, '');
+      if (!text) return;
+      this.value = text;
+      this.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
 
   function debounce(fn, ms) {
     let t;

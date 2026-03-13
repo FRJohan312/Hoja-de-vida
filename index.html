@@ -78,7 +78,22 @@ form textarea{resize:none;min-height:10mm}
 
 /* CHAR BOX (for document numbers) */
 .charbox{display:flex;gap:1px;padding:0 1px}
-.charbox input{width:6mm;min-height:6mm;border:.4pt solid #1565C0;text-align:center;font-size:7pt;padding:0;flex-shrink:0}
+.charbox input{
+  width:6mm;
+  min-height:6mm;
+  height:6mm;
+  border:.4pt solid #1565C0;
+  text-align:center !important;
+  font-size:7pt !important;
+  padding:0 !important;
+  margin:0;
+  flex-shrink:0;
+  /* Centrado vertical y horizontal */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+}
 
 /* SIGN AREA */
 .sign-line{border-bottom:.4pt solid #000;min-height:12mm;width:100%}
@@ -90,61 +105,6 @@ form textarea{resize:none;min-height:10mm}
 .firma-tbl{width:100%;border-collapse:collapse;margin-top:3mm}
 .firma-tbl td{padding:2px 4px;vertical-align:bottom;font-size:6.5pt;color:#333}
 
-/* RESPONSIVE MOBILE VIEW */
-@media screen and (max-width: 768px) {
-  body { background: #eef2f5; font-size: 14px; }
-  .bar { position: relative; flex-direction: column; padding: 12px; gap: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-  .bar-title { font-size: 18px; text-align: center; width: 100%; display:block; margin-bottom:2px; }
-  .bar-sub { font-size: 12px; text-align: center; width: 100%; display:block; margin-bottom: 12px; }
-  .bar > div { width: 100%; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .bar button { padding: 12px; font-size: 14px; flex: 1; min-width: 105px; margin:0; border-radius:6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  
-  .pages { margin-top: 0 !important; padding: 10px; gap: 20px; }
-  .page { width: 100% !important; border-radius: 12px; padding: 16px !important; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-  
-  .minerva-band, .pgnum { display: none !important; }
-  .pc { margin-left: 0 !important; }
-  
-  .mhdr-title { font-size: 18px; }
-  .shdr { font-size: 14px !important; text-align: center; padding: 12px; border-radius: 6px; margin-top: 20px; box-shadow: 0 2px 5px rgba(21,101,192,0.3); }
-  .shdr2 { font-size: 13px !important; padding: 10px; border-radius: 6px; margin-top: 15px; }
-  
-  .ft, .ft tbody, .ft tr, .ft td { display: block !important; width: 100% !important; box-sizing: border-box; }
-  .ft tr { margin-bottom: 0; display: flex; flex-direction: column; }
-  .ft td { border: none !important; border-bottom: 1px solid #e2e8f0 !important; padding: 14px 6px !important; height: auto !important; min-height: 60px; }
-  .ft td:last-child { border-bottom: none !important; }
-  
-  .lb { font-size: 12px !important; margin-bottom: 8px; display: block; font-weight: bold; color: #1565C0; }
-  
-  form input[type=text], form input[type=tel], form input[type=email], 
-  form input[type=number], form input[type=date], form input[type=month], 
-  form select, form textarea { 
-    font-size: 16px !important; 
-    padding: 12px !important; 
-    min-height: 48px !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 8px;
-    background: #f8fafc !important;
-    color: #334155;
-  }
-  form input:focus, form select:focus, form textarea:focus { border-color: #1565C0 !important; outline: 2px solid rgba(21,101,192,0.2) !important; }
-  form textarea { min-height: 100px !important; }
-  
-  .rg { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; padding: 8px 4px !important; }
-  .ro { font-size: 15px !important; padding: 4px 0; display:flex; align-items:center; width: 100%; color: #475569; }
-  .ro input { width: 20px !important; height: 20px !important; margin-right: 12px !important; border-radius: 4px; }
-  
-  .ph-cell { border: 2px dashed #1565C0 !important; border-radius: 12px; padding: 30px !important; margin: 15px 0 !important; background: #eff6ff; }
-  .ph-txt { font-size: 15px !important; }
-  
-  .charbox { flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
-  .charbox input { width: calc(20% - 7px) !important; min-height: 50px !important; font-size: 20px !important; border-radius: 6px; }
-  
-  .firma-tbl, .firma-tbl tbody, .firma-tbl tr, .firma-tbl td { display: block; width: 100%; border: none; }
-  .firma-tbl td { margin-bottom: 25px; text-align: center; }
-  .firma-tbl span { font-size: 14px !important; }
-  .sign-line { margin-bottom: 8px; border-bottom: 1px solid #000; }
-}
 
 /* PRINT */
 @media print{
