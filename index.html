@@ -79,19 +79,16 @@ form textarea{resize:none;min-height:10mm}
 /* CHAR BOX (for document numbers) */
 .charbox{display:flex;gap:1px;padding:0 1px}
 .charbox input{
-  width:6mm;
-  min-height:6mm;
-  height:6mm;
-  border:.4pt solid #1565C0;
+  width:6mm !important;
+  max-width:6mm !important;
+  min-height:6mm !important;
+  height:6mm !important;
+  border:none !important;
   text-align:center !important;
   font-size:7pt !important;
   padding:0 !important;
   margin:0;
   flex-shrink:0;
-  /* Centrado vertical y horizontal */
-  display: flex;
-  align-items: center;
-  justify-content: center;
   line-height: normal;
 }
 
@@ -111,7 +108,6 @@ form textarea{resize:none;min-height:10mm}
   *{
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    color-adjust: exact !important;
   }
   @page{size:A4;margin:0}
   body{background:#fff}
