@@ -77,10 +77,10 @@ form textarea{resize:none;min-height:10mm}
 .ph-txt{font-size:6pt;color:#1565C0;text-align:center;padding:4px;line-height:1.5}
 
 /* CHAR BOX (for document numbers) */
-.charbox{display:flex;gap:1px;padding:0 1px}
+.charbox{display:flex;gap:0;padding:0 1px}
 .charbox input{
-  width:6mm !important;
-  max-width:6mm !important;
+  width:3mm !important;
+  max-width:3mm !important;
   min-height:6mm !important;
   height:6mm !important;
   border:none !important;
@@ -219,11 +219,11 @@ form textarea{resize:none;min-height:10mm}
         </td>
         <td style="width:34%"><span class="lb">Número de documento</span>
           <div class="charbox" style="margin-top:1px">
-            <input type="text" name="doc1" maxlength="1"/><input type="text" name="doc2" maxlength="1"/>
-            <input type="text" name="doc3" maxlength="1"/><input type="text" name="doc4" maxlength="1"/>
-            <input type="text" name="doc5" maxlength="1"/><input type="text" name="doc6" maxlength="1"/>
-            <input type="text" name="doc7" maxlength="1"/><input type="text" name="doc8" maxlength="1"/>
-            <input type="text" name="doc9" maxlength="1"/><input type="text" name="doc10" maxlength="1"/>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc1" maxlength="1"/><input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc2" maxlength="1"/>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc3" maxlength="1"/><input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc4" maxlength="1"/>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc5" maxlength="1"/><input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc6" maxlength="1"/>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc7" maxlength="1"/><input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc8" maxlength="1"/>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc9" maxlength="1"/><input type="tel" inputmode="numeric" pattern="[0-9]*" name="doc10" maxlength="1"/>
           </div>
         </td>
         <td style="width:22%"><span class="lb">Lugar de expedición</span><input type="text" name="lugar_exp"/></td>

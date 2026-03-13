@@ -125,9 +125,12 @@
   // -------- DOCUMENT NUMBER AUTO-FOCUS --------
   const charboxes = document.querySelectorAll('.charbox input');
   charboxes.forEach((cb, i) => {
-    // Para forzar que sólo haya 1 carácter y manejar si se escriben rápido o se pega
+    // Para forzar que sólo haya 1 carácter numérico
     cb.addEventListener('input', function(e) {
-      const val = this.value;
+      // Eliminar todo lo que no sea número
+      let val = this.value.replace(/\\D/g, '');
+      this.value = val;
+      
       if (val.length > 1) {
         // Dejar sólo el primer carácter en esta casilla
         this.value = val.charAt(0);
@@ -144,16 +147,23 @@
     });
     
     cb.addEventListener('keydown', function(e) {
+      // Prevenir letras o símbolos desde el teclado, permitiendo borrar y moverse
+      if (!/^[0-9]$/i.test(e.key) && !['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab', 'Delete'].includes(e.key)) {
+         e.preventDefault();
+      }
+      
       // Volver a la casilla anterior si se presiona borrar y está vacía
       if (e.key === 'Backspace' && this.value === '' && i > 0) {
         charboxes[i - 1].focus();
+        charboxes[i - 1].value = ''; // Borrar el de atrás visualmente
       }
     });
     
-    // Pegar texto largo
+    // Pegar texto largo de sólo números
     cb.addEventListener('paste', function(e) {
       e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\\s/g, '');
+      // Filtrar para que sólo queden números
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\\D/g, '');
       if (!text) return;
       this.value = text;
       this.dispatchEvent(new Event('input', { bubbles: true }));
